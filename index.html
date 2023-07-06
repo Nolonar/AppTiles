@@ -37,6 +37,7 @@
         padding: 20px;
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         gap: 20px;
     }
 
@@ -51,28 +52,33 @@
 
     div.group {
         display: flex;
-        flex-grow: 1;
     }
 
     div.group>p {
         font-weight: bold;
-        width: 224px;
+        flex-shrink: 0;
+    }
+
+    div.group>p,
+    div.tile {
+        width: 210px;
     }
 
     div.tiles {
         display: flex;
         gap: 25px;
+        flex-wrap: wrap;
     }
 
     div.tile {
         box-sizing: border-box;
-        width: 224px;
-        height: 288px;
+        height: 238px;
         border: thin solid lightgray;
         border-radius: 3px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        flex-shrink: 0;
     }
 
     div.tile>div.star {
@@ -245,26 +251,26 @@ cembra.png</textarea>
             const group = document.querySelector(`div.group.${platform} > div.tiles`);
             group.textContent = "";
             tiles.forEach(tile => group.appendChild(createTile(tile)));
-
-            html2canvas(tilesPanel).then(c => {
-                const ctx = canvas.getContext("2d");
-                const ratio = Math.min(canvas.width / c.width, canvas.height / c.height);
-                const { width: w, height: h } = canvas;
-                ctx.clearRect(0, 0, w, h);
-                ctx.drawImage(c, 0, 0, c.width, c.height, 0, 0, c.width * ratio, c.height * ratio);
-            });
         });
         t.dispatchEvent(new Event("input"));
     });
 
-    document.getElementById("download-screenshot").addEventListener("click", () => {
-        const link = document.createElement("a");
-        link.download = "screenshot.png";
-        link.href = canvas.toDataURL('image/png');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    });
+    document.getElementById("download-screenshot").addEventListener("click", () =>
+        html2canvas(tilesPanel).then(c => {
+            const ctx = canvas.getContext("2d");
+            const { width, height } = canvas;
+            const { width: w, height: h } = c;
+            const ratio = Math.min(width / c.width, height / c.height);
+            ctx.clearRect(0, 0, width, height);
+            ctx.drawImage(c, 0, 0, w, h, 0, 0, w * ratio, h * ratio);
+
+            const link = document.createElement("a");
+            link.download = "screenshot.png";
+            link.href = canvas.toDataURL('image/png');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }));
 </script>
 
 </html>
