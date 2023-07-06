@@ -68,12 +68,21 @@
         box-sizing: border-box;
         width: 224px;
         height: 288px;
-        padding-top: 50px;
         border: thin solid lightgray;
         border-radius: 3px;
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    div.tile>div.star {
+        height: 50px;
+        width: 100%;
+        background: url("star.png") 5px/40px no-repeat;
+    }
+
+    div.tile>div.content {
+        flex-grow: 1;
     }
 
     div.tile img {
@@ -97,27 +106,27 @@
         font-size: 14px;
     }
 
-    div.tile div.arrow {
+    div.tile>div.arrow {
         position: relative;
-        flex-grow: 1;
+        height: 10px;
+        padding-bottom: 10px;
     }
 
-    div.tile div.arrow::before,
-    div.tile div.arrow::after {
+    div.tile>div.arrow::before,
+    div.tile>div.arrow::after {
         content: ' ';
         position: absolute;
-        bottom: 15px;
         height: 2px;
         width: 20px;
         background-color: lightgray;
     }
 
-    div.tile div.arrow::before {
+    div.tile>div.arrow::before {
         transform: rotate(25deg);
         right: -1px;
     }
 
-    div.tile div.arrow::after {
+    div.tile>div.arrow::after {
         transform: rotate(-25deg);
         left: -1px;
     }
@@ -168,23 +177,33 @@ cembra.png</textarea>
             classes: ["tile"],
             children: [
                 createElement({
-                    element: "img",
-                    attributes: { src: img }
+                    element: "div",
+                    classes: ["star"]
                 }),
                 createElement({
-                    element: "p",
-                    classes: ["name"],
-                    attributes: { innerText: name }
+                    element: "div",
+                    classes: ["content"],
+                    children: [
+                        createElement({
+                            element: "img",
+                            attributes: { src: img }
+                        }),
+                        createElement({
+                            element: "p",
+                            classes: ["name"],
+                            attributes: { innerText: name }
+                        }),
+                        createElement({
+                            element: "p",
+                            classes: ["client"],
+                            attributes: { innerText: client }
+                        })
+                    ]
                 }),
                 createElement({
-                    element: "p",
-                    classes: ["client"],
-                    attributes: { innerText: client }
-                }),
-                // createElement({
-                //     element: "div",
-                //     classes: ["arrow"]
-                // })
+                    element: "div",
+                    classes: ["arrow"]
+                })
             ]
         });
     }
