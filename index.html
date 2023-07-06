@@ -31,10 +31,13 @@
     }
 
     #tiles-panel {
+        box-sizing: border-box;
+        width: 1400px;
+        height: 800px;
+        padding: 20px;
         display: flex;
         flex-direction: column;
         gap: 20px;
-        padding: 20px;
     }
 
     #control-panel {
@@ -48,6 +51,7 @@
 
     div.group {
         display: flex;
+        flex-grow: 1;
     }
 
     div.group>p {
