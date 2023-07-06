@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>SPS Kacheln</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script src="html2canvas.min.js"></script>
+<style>
+    body {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    #canvas {
+        display: none;
+    }
+
+    label {
+        display: block;
+    }
+
+    p {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    textarea {
+        width: 100%;
+        height: 200px;
+    }
+
+    #tiles-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    #control-panel {
+        display: flex;
+        gap: 20px;
+    }
+
+    #control-panel>div {
+        flex-grow: 1;
+    }
+
+    div.group {
+        display: flex;
+    }
+
+    div.group>p {
+        font-weight: bold;
+        width: 224px;
+    }
+
+    div.tiles {
+        display: flex;
+        gap: 25px;
+    }
+
+    div.tile {
+        box-sizing: border-box;
+        width: 224px;
+        height: 288px;
+        padding-top: 50px;
+        border: thin solid lightgray;
+        border-radius: 3px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    div.tile img {
+        width: 80px;
+    }
+
+    div.tile p {
+        margin: 0;
+        text-align: center;
+    }
+
+    div.tile p.name {
+        margin-top: 20px;
+        margin-bottom: 5px;
+        font-weight: bold;
+        font-size: 20px;
+    }
+
+    div.tile p.client {
+        color: darkgray;
+        font-size: 14px;
+    }
+
+    div.tile div.arrow {
+        position: relative;
+        flex-grow: 1;
+    }
+
+    div.tile div.arrow::before,
+    div.tile div.arrow::after {
+        content: ' ';
+        position: absolute;
+        bottom: 15px;
+        height: 2px;
+        width: 20px;
+        background-color: lightgray;
+    }
+
+    div.tile div.arrow::before {
+        transform: rotate(25deg);
+        right: -1px;
+    }
+
+    div.tile div.arrow::after {
+        transform: rotate(-25deg);
+        left: -1px;
+    }
+</style>
+
+<body>
+    <canvas id="canvas" width="700" height="400"></canvas>
+    <div id="tiles-panel">
+        <div class="group PROD">
+            <p>Bei Auswahl für PROD:</p>
+            <div class="tiles"></div>
+        </div>
+        <div class="group INT">
+            <p>Bei Auswahl für INT:</p>
+            <div class="tiles"></div>
+        </div>
+    </div>
+    <div id="control-panel">
+        <div>
+            <label for="PROD">PROD</label>
+            <textarea id="PROD">
+TEST
+Test
+chrome.png
+
+Hello
+World
+chrome.png</textarea>
+        </div>
+        <div>
+            <label for="INT">INT</label>
+            <textarea id="INT">
+INT
+TEST
+cembra.png</textarea>
+        </div>
+    </div>
+    <input type="submit" id="download-screenshot" value="Download Screenshot">
+</body>
+
+<script>
+    const canvas = document.getElementById("canvas");
+    const tilesPanel = document.getElementById("tiles-panel");
+
+    function createTile({ name, client, img }) {
+        return createElement({
+            element: "div",
+            classes: ["tile"],
+            children: [
+                createElement({
+                    element: "img",
+                    attributes: { src: img }
+                }),
+                createElement({
+                    element: "p",
+                    classes: ["name"],
+                    attributes: { innerText: name }
+                }),
+                createElement({
+                    element: "p",
+                    classes: ["client"],
+                    attributes: { innerText: client }
+                }),
+                createElement({
+                    element: "div",
+                    classes: ["arrow"]
+                })
+            ]
+        });
+    }
+
+    function createElement({ element = "", classes = [], children = [], attributes = {} }) {
+        const result = document.createElement(element);
+        for (const c of classes)
+            result.classList.add(c);
+
+        for (const child of children)
+            result.appendChild(child);
+
+        for (const attr in attributes)
+            result[attr] = attributes[attr];
+
+        return result;
+    }
+
+    [...document.getElementsByTagName("textarea")].forEach(t => {
+        t.addEventListener("input", e => {
+            const platform = e.target.id;
+            let lines = e.target.value.split("\n");
+
+            const tiles = [];
+            while (lines.length) {
+                const [name, client, img, ...rest] = lines;
+                tiles.push({
+                    name: name,
+                    client: client,
+                    img: img
+                });
+
+                while (rest.length && !rest[0].length)
+                    rest.shift();
+
+                lines = rest;
+            }
+
+            const group = document.querySelector(`div.group.${platform} > div.tiles`);
+            group.textContent = "";
+            tiles.forEach(tile => group.appendChild(createTile(tile)));
+
+            html2canvas(tilesPanel).then(c => {
+                const ctx = canvas.getContext("2d");
+                const ratio = Math.min(canvas.width / c.width, canvas.height / c.height);
+                const { width: w, height: h } = canvas;
+                ctx.clearRect(0, 0, w, h);
+                ctx.drawImage(c, 0, 0, c.width, c.height, 0, 0, c.width * ratio, c.height * ratio);
+            });
+        });
+        t.dispatchEvent(new Event("input"));
+    });
+
+    document.getElementById("download-screenshot").addEventListener("click", () => {
+        const link = document.createElement("a");
+        link.download = "screenshot.png";
+        link.href = canvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+</script>
+
+</html>
