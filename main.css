@@ -129,6 +129,7 @@ div.group>p {
     font-weight: bold;
     flex-shrink: 0;
     width: 210px;
+    margin: 0;
 }
 
 div.tiles {
