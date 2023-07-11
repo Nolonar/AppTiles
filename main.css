@@ -142,6 +142,9 @@ div.tile>div.star {
 
 div.tile>div.content {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 div.tile div.img {
