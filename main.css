@@ -130,6 +130,8 @@ div.group>p {
     flex-shrink: 0;
     width: 210px;
     margin: 0;
+    padding: 16px 0;
+    box-sizing: border-box;
 }
 
 div.tiles {
