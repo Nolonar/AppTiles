@@ -47,6 +47,10 @@ textarea {
     width: 324px;
 }
 
+#tiles-panel.rows-2 div.tile>div.content {
+    padding: 0 8px;
+}
+
 #tiles-panel.rows-2 div.tile div.img {
     width: 123px;
     height: 123px;
@@ -73,6 +77,10 @@ textarea {
     width: 210px;
 }
 
+#tiles-panel.rows-3 div.tile>div.content {
+    padding: 0 5px;
+}
+
 #tiles-panel.rows-3 div.tile div.img {
     width: 60px;
     height: 60px;
@@ -97,6 +105,10 @@ textarea {
 
 #tiles-panel.rows-4 div.tile {
     width: 155px;
+}
+
+#tiles-panel.rows-4 div.tile>div.content {
+    padding: 0;
 }
 
 #tiles-panel.rows-4 div.tile div.img {
@@ -160,7 +172,6 @@ div.tile>div.content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 8px;
 }
 
 div.tile div.img {
