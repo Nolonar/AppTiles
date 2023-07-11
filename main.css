@@ -38,9 +38,13 @@ textarea {
     gap: 80px;
 }
 
+#tiles-panel.rows-2 div.group>p,
+#tiles-panel.rows-2 div.tile {
+    height: 370px;
+}
+
 #tiles-panel.rows-2 div.tile {
     width: 324px;
-    height: 370px;
 }
 
 #tiles-panel.rows-2 div.tile div.img {
@@ -60,9 +64,13 @@ textarea {
     gap: 25px;
 }
 
+#tiles-panel.rows-3 div.group>p,
+#tiles-panel.rows-3 div.tile {
+    height: 240px;
+}
+
 #tiles-panel.rows-3 div.tile {
     width: 210px;
-    height: 240px;
 }
 
 #tiles-panel.rows-3 div.tile div.img {
@@ -82,9 +90,13 @@ textarea {
     gap: 10px;
 }
 
+#tiles-panel.rows-4 div.group>p,
+#tiles-panel.rows-4 div.tile {
+    height: 175px;
+}
+
 #tiles-panel.rows-4 div.tile {
     width: 155px;
-    height: 175px;
 }
 
 #tiles-panel.rows-4 div.tile div.img {

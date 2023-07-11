@@ -57,26 +57,25 @@ function createElement({ element = "", classes = [], children = [], attributes =
 [...document.getElementsByTagName("textarea")].forEach(t => {
     t.addEventListener("input", ({ target: { id, value } }) => {
         const platform = id;
-        let lines = value.split("\n");
+        const group = document.querySelector(`div.group.${platform} > div.tiles`);
+        group.textContent = "";
+        if (value === "")
+            return;
 
-        const tiles = [];
+        let lines = value.split("\n");
         while (lines.length) {
             const [name, client, img, ...rest] = lines;
-            tiles.push({
+            group.appendChild(createTile({
                 name: name,
                 client: client,
                 img: `img/${img}`
-            });
+            }));
 
             while (rest.length && !rest[0].length)
                 rest.shift();
 
             lines = rest;
         }
-
-        const group = document.querySelector(`div.group.${platform} > div.tiles`);
-        group.textContent = "";
-        tiles.forEach(tile => group.appendChild(createTile(tile)));
     });
     t.dispatchEvent(new Event("input"));
 });
