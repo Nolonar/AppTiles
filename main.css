@@ -176,6 +176,8 @@ div.tile>div.content {
 
 div.tile div.img {
     background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 div.tile p {
