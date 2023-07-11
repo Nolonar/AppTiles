@@ -1,6 +1,5 @@
 const canvas = document.getElementById("canvas");
 const tilesPanel = document.getElementById("tiles-panel");
-const rowsControl = document.getElementById("rows");
 
 function createTile({ name, client, img }) {
     return createElement({
@@ -76,15 +75,14 @@ function createElement({ element = "", classes = [], children = [], attributes =
 
             lines = rest;
         }
+
+        const left = group.offsetLeft;
+        const lastTile = [...group.children].slice(-1)[0];
+        const right = lastTile.offsetLeft + lastTile.offsetWidth;
+        group.style.width = `${right - left}px`;
     });
     t.dispatchEvent(new Event("input"));
 });
-
-rowsControl.addEventListener("input", ({ target: { value } }) => {
-    tilesPanel.className = "";
-    tilesPanel.classList.add(`rows-${value}`);
-});
-rowsControl.dispatchEvent(new Event("input"));
 
 document.getElementById("download-screenshot").addEventListener("click", () =>
     html2canvas(tilesPanel).then(c => {
