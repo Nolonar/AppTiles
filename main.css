@@ -34,6 +34,72 @@ textarea {
     gap: 20px;
 }
 
+#tiles-panel.rows-2 div.tiles {
+    gap: 80px;
+}
+
+#tiles-panel.rows-2 div.tile {
+    width: 324px;
+    height: 370px;
+}
+
+#tiles-panel.rows-2 div.tile div.img {
+    width: 123px;
+    height: 123px;
+}
+
+#tiles-panel.rows-2 div.tile p.name {
+    font-size: 31px;
+}
+
+#tiles-panel.rows-2 div.tile p.client {
+    font-size: 22px;
+}
+
+#tiles-panel.rows-3 div.tiles {
+    gap: 25px;
+}
+
+#tiles-panel.rows-3 div.tile {
+    width: 210px;
+    height: 240px;
+}
+
+#tiles-panel.rows-3 div.tile div.img {
+    width: 80px;
+    height: 80px;
+}
+
+#tiles-panel.rows-3 div.tile p.name {
+    font-size: 20px;
+}
+
+#tiles-panel.rows-3 div.tile p.client {
+    font-size: 14px;
+}
+
+#tiles-panel.rows-4 div.tiles {
+    gap: 10px;
+}
+
+#tiles-panel.rows-4 div.tile {
+    width: 155px;
+    height: 175px;
+}
+
+#tiles-panel.rows-4 div.tile div.img {
+    width: 58px;
+    height: 58px;
+}
+
+#tiles-panel.rows-4 div.tile p.name {
+    font-size: 14.5px;
+}
+
+#tiles-panel.rows-4 div.tile p.client {
+    font-size: 10px;
+}
+
 #control-panel {
     display: flex;
     gap: 20px;
@@ -50,22 +116,16 @@ div.group {
 div.group>p {
     font-weight: bold;
     flex-shrink: 0;
-}
-
-div.group>p,
-div.tile {
     width: 210px;
 }
 
 div.tiles {
     display: flex;
-    gap: 25px;
     flex-wrap: wrap;
 }
 
 div.tile {
     box-sizing: border-box;
-    height: 238px;
     border: thin solid lightgray;
     border-radius: 3px;
     display: flex;
@@ -77,18 +137,15 @@ div.tile {
 div.tile>div.star {
     height: 50px;
     width: 100%;
-    background: url("star.png") 5px/40px no-repeat;
+    background: url("res/star.png") 5px/40px no-repeat;
 }
 
 div.tile>div.content {
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-div.tile img {
-    width: 80px;
+div.tile div.img {
+    background-size: contain;
 }
 
 div.tile p {
@@ -100,12 +157,10 @@ div.tile p.name {
     margin-top: 20px;
     margin-bottom: 5px;
     font-weight: bold;
-    font-size: 20px;
 }
 
 div.tile p.client {
     color: darkgray;
-    font-size: 14px;
 }
 
 div.tile>div.arrow {

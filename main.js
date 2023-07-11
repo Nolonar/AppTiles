@@ -16,8 +16,9 @@ function createTile({ name, client, img }) {
                 classes: ["content"],
                 children: [
                     createElement({
-                        element: "img",
-                        attributes: { src: img }
+                        element: "div",
+                        classes: ["img"],
+                        attributes: { style: `background-image: url('${img}');` }
                     }),
                     createElement({
                         element: "p",
