@@ -62,9 +62,10 @@ function createElement({ element = "", classes = [], children = [], attributes =
             return;
 
         let lines = value.split("\n");
+        const tiles = [];
         while (lines.length) {
             const [name, client, img, ...rest] = lines;
-            group.appendChild(createTile({
+            tiles.push(createTile({
                 name: name,
                 client: client,
                 img: `img/${img}`
@@ -75,6 +76,15 @@ function createElement({ element = "", classes = [], children = [], attributes =
 
             lines = rest;
         }
+        const tilesOrdered = tiles.slice();
+        const offset = (tiles.length % 2 + 1) % 2;
+        const halfLength = tiles.length / 2;
+        tiles.forEach((tile, i) => {
+            const offsetNeeded = Number(i >= halfLength);
+            const newIndex = (i * 2) % tiles.length + offset * offsetNeeded;
+            tilesOrdered[newIndex] = tile;
+        });
+        tilesOrdered.forEach(tile => group.appendChild(tile));
 
         const left = group.offsetLeft;
         const lastTile = [...group.children].slice(-1)[0];

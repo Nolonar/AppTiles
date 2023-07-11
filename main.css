@@ -104,13 +104,13 @@ div.tile p {
 div.tile p.name {
     margin-top: 20px;
     margin-bottom: 5px;
-    font-size: 26px;
+    font-size: 22px;
     font-weight: bold;
 }
 
 div.tile p.client {
     color: darkgray;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 div.tile>div.arrow {
